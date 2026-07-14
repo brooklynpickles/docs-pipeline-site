@@ -1,0 +1,48 @@
+name: Sync docs from source repo
+
+# Triggered by a repository_dispatch from one of the source forks after it
+# merges to its default branch. Expected client_payload:
+#   repo:        source repo name, e.g. "swagger-petstore"
+#   ref:         branch or tag to clone, e.g. "master"
+#   product_dir: subfolder under docs/, e.g. "petstore"
+#   label:       sidebar category label, e.g. "Petstore"
+#   position:    sidebar ordering, e.g. 1
+
+on:
+  repository_dispatch:
+    types: [docs-sync]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Clone source repo
+        run: |
+          git clone --depth=1 --branch "${{ github.event.client_payload.ref }}" \
+            "https://github.com/brooklynpickles/${{ github.event.client_payload.repo }}.git" \
+            /tmp/source-repo
+
+      - name: Sync docs into product folder
+        run: |
+          python3 scripts/sync_docs.py \
+            --source /tmp/source-repo/docs \
+            --dest "docs/${{ github.event.client_payload.product_dir }}" \
+            --label "${{ github.event.client_payload.label }}" \
+            --position "${{ github.event.client_payload.position }}"
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "docs-sync-bot"
+          git config user.email "actions@github.com"
+          git add "docs/${{ github.event.client_payload.product_dir }}"
+          if git diff --cached --quiet; then
+            echo "No changes to sync"
+            exit 0
+          fi
+          git commit -m "docs: sync from ${{ github.event.client_payload.repo }}@${{ github.event.client_payload.ref }}"
+          git push
