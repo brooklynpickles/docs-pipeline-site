@@ -35,6 +35,7 @@ const config = {
           sidebarPath: './sidebars.js',
           routeBasePath: '/',
           editUrl: undefined,
+          docItemComponent: '@theme/ApiItem',
         },
         blog: false,
         theme: {
@@ -43,6 +44,31 @@ const config = {
       }),
     ],
   ],
+
+  // Generates interactive API reference pages ("try it" request panels +
+  // per-language snippets) straight from the OpenAPI specs the pipeline
+  // already tracks. Regenerate with: npm run gen-api-docs
+  plugins: [
+    [
+      'docusaurus-plugin-openapi-docs',
+      {
+        id: 'api',
+        docsPluginId: 'classic',
+        config: {
+          petstore: {
+            specPath: 'openapi/petstore.yaml',
+            outputDir: 'docs/petstore/api',
+            sidebarOptions: {
+              groupPathsBy: 'tag',
+              categoryLinkSource: 'tag',
+            },
+          },
+        },
+      },
+    ],
+  ],
+
+  themes: ['docusaurus-theme-openapi-docs'],
 
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
