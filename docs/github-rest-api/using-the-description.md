@@ -1,7 +1,8 @@
 ---
-title: Using this OpenAPI description
-sidebar_position: 1
+title: "Using this OpenAPI description"
 ---
+
+# Using this OpenAPI description
 
 This repository publishes machine-generated OpenAPI descriptions of
 GitHub's REST API. It does not accept pull requests that edit the
@@ -26,3 +27,6 @@ directory to pin to a specific release.
 Check `descriptions/api.github.com/CHANGELOG.md` for a per-release record
 of what changed in the schema. A new date-stamped file is added alongside
 the unversioned bundle on each release.
+
+To track changes programmatically, diff two date-stamped descriptions rather
+than the unversioned bundle, which is overwritten in place on each release.
