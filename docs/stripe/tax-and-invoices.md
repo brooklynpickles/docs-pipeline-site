@@ -1,7 +1,8 @@
 ---
-title: Tax and invoice line items
-sidebar_position: 1
+title: "Tax and invoice line items"
 ---
+
+# Tax and invoice line items
 
 ## Invoice period
 
