@@ -14,3 +14,6 @@ cycle from the invoice date.
 
 Tax calculations can include a ship-from location, used to determine the
 origin point for a shipment when that affects the applicable tax rate.
+
+When no ship-from location is supplied, the account's registered business
+address is used as the origin for tax calculations.
