@@ -1,7 +1,8 @@
 ---
-title: Getting started with the Petstore API
-sidebar_position: 1
+title: "Getting started with the Petstore API"
 ---
+
+# Getting started with the Petstore API
 
 The Petstore API is a sample implementation used to demonstrate OpenAPI
 tooling. It exposes endpoints for managing pets, orders, and user accounts.
