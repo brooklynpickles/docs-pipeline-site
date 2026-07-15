@@ -1,7 +1,8 @@
 ---
-title: Items
-sidebar_position: 1
+title: "Items"
 ---
+
+# Items
 
 An item belongs to a single owner and has a title and an optional
 description. Every item is returned to the client with its ID, owner ID,
